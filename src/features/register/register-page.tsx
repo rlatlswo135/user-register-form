@@ -7,6 +7,13 @@ import { Form } from "@/components/ui/form";
 import { RegisterStepTwo } from "./components/register-step-two";
 import { RegisterStepThree } from "./components/register-step-three";
 
+/*
+#TODO:
+- 각 폼 regx 확인
+- 2단계 넘어갈시 validate 확인
+- 3단계 sns확인 
+*/
+
 const initialRegisterValue: RegisterSchema = {
   account: {
     username: "",

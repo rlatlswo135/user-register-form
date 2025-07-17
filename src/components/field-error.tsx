@@ -1,11 +1,7 @@
-type FieldErrorProps<T> = {
-  errors: T;
-  field: keyof T;
+type FieldErrorProps = {
+  message: string;
 };
 
-export const FieldError = <T extends Record<string, string[]>>({
-  errors,
-  field,
-}: FieldErrorProps<T>) => {
-  return <span className="text-red-500 text-xs">{errors[field][0]}</span>;
+export const FieldError = ({ message }: FieldErrorProps) => {
+  return <span className="text-red-500 text-xs">{message}</span>;
 };

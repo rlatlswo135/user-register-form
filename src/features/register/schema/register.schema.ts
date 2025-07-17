@@ -19,9 +19,7 @@ export const profileSchema = z.object({
   nickname: z.string().min(2, "닉네임은 2자 이상이어야 합니다."),
 });
 
-export const snsSchema = z.object({
-  sns: z.array(z.enum(["kakao", "naver", "google", "apple"])),
-});
+export const snsSchema = z.array(z.enum(["kakao", "naver", "google", "apple"]));
 
 export const registerSchema = z.object({
   account: accountSchema,

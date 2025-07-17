@@ -1,8 +1,3 @@
-import type { RegisterStepProps } from "../types/register.types";
-
-export const RegisterStepThree = ({
-  register,
-  errors: { sns },
-}: RegisterStepProps) => {
+export const RegisterStepThree = () => {
   return <div className="flex flex-col gap-4">소셜</div>;
 };

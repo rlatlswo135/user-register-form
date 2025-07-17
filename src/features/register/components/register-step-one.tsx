@@ -1,41 +1,17 @@
-import { Input } from "@/components/ui/input";
-import type { RegisterStepProps } from "../types/register.types";
-import { FieldError } from "@/components/field-error";
+import { FormInput } from "@/components/form/form-input";
 
-export const RegisterStepOne = ({
-  register,
-  errors: { account },
-}: RegisterStepProps) => {
+export const RegisterStepOne = () => {
   return (
     <div className="flex flex-col gap-4">
-      <Input placeholder="아이디" {...register("account.username")} />
-      {account?.username?.message && (
-        <FieldError message={account.username.message} />
-      )}
-      <Input
+      <FormInput label="아이디" name="account.username" />
+      <FormInput label="비밀번호" name="account.password" type="password" />
+      <FormInput
+        label="비밀번호 확인"
+        name="account.passwordConfirm"
         type="password"
-        placeholder="비밀번호"
-        {...register("account.password")}
       />
-      {account?.password?.message && (
-        <FieldError message={account.password.message} />
-      )}
-      <Input
-        type="password"
-        placeholder="비밀번호 확인"
-        {...register("account.passwordConfirm")}
-      />
-      {account?.passwordConfirm?.message && (
-        <FieldError message={account?.passwordConfirm?.message} />
-      )}
-      <Input placeholder="이메일" {...register("account.email")} />
-      {account?.email?.message && (
-        <FieldError message={account?.email?.message} />
-      )}
-      <Input placeholder="전화번호" {...register("account.phone")} />
-      {account?.phone?.message && (
-        <FieldError message={account?.phone?.message} />
-      )}
+      <FormInput label="이메일" name="account.email" />
+      <FormInput label="전화번호" name="account.phone" />
     </div>
   );
 };

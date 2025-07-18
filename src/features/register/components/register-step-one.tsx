@@ -7,7 +7,6 @@ export const RegisterStepOne = () => {
         label="아이디"
         name="account.username"
         placeholder="아이디를 입력하세요."
-        autoFocus
       />
       <FormInput
         label="비밀번호"
@@ -24,6 +23,7 @@ export const RegisterStepOne = () => {
       <FormInput
         label="이메일"
         name="account.email"
+        type="email"
         placeholder="이메일을 입력하세요. (example@email.com)"
       />
       <FormInput

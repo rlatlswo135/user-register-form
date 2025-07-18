@@ -1,5 +1,5 @@
+import type { ReactNode } from "react";
 import {
-  FormControl,
   FormDescription,
   FormField,
   FormItem,
@@ -19,9 +19,7 @@ type FormFieldWrapperProps<
   name: FieldPath<TFieldValues>;
   label?: string;
   description?: string;
-  children: (
-    field: ControllerRenderProps<FieldValues, TName>
-  ) => React.ReactNode;
+  children: (field: ControllerRenderProps<FieldValues, TName>) => ReactNode;
 };
 
 export const FormFieldWrapper = ({
@@ -36,7 +34,7 @@ export const FormFieldWrapper = ({
       render={({ field }) => (
         <FormItem>
           {label && <FormLabel>{label}</FormLabel>}
-          <FormControl>{children(field)}</FormControl>
+          {children(field)}
           {description && <FormDescription>{description}</FormDescription>}
           <FormMessage />
         </FormItem>

@@ -6,14 +6,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Form } from "@/components/ui/form";
 import { RegisterStepTwo } from "./components/register-step-two";
 import { RegisterStepThree } from "./components/register-step-three";
+import { Button } from "@/components/ui/button";
 
 /*
-#TODO:
-- 각 폼 regx 확인
-- 2단계 넘어갈시 validate 확인
-- 3단계 sns확인 
-*/
+#TODO
 
+1. 각 폼 이상한거 없는지 체크
+2. 다음, 이전버튼 Register-Step 컴포넌트에 넣을지 고민
+*/
 const initialRegisterValue: RegisterSchema = {
   account: {
     username: "",
@@ -29,21 +29,23 @@ const initialRegisterValue: RegisterSchema = {
   },
   sns: [],
 };
+
 export const RegisterPage = () => {
   const form = useForm({
     resolver: zodResolver(registerSchema),
     defaultValues: initialRegisterValue,
-    mode: "onBlur",
+    mode: "onTouched",
   });
 
   const [step, setStep] = useState(1);
 
   const handleNext = async () => {
-    const result = await form.trigger(
-      step === 1 ? "account" : step === 2 ? "profile" : "sns"
-    );
+    const schemaField = step === 1 ? "account" : step === 2 ? "profile" : "sns";
+
+    const result = await form.trigger(schemaField);
 
     if (result) {
+      form.clearErrors();
       setStep((prev) => prev + 1);
     }
   };
@@ -66,28 +68,23 @@ export const RegisterPage = () => {
         {step === 3 && <RegisterStepThree />}
         <div className="flex gap-2 mt-6 justify-between">
           {step > 1 && (
-            <button
-              onClick={handlePrev}
-              className="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300"
-            >
+            <Button onClick={handlePrev} variant="default">
               이전
-            </button>
+            </Button>
           )}
           {step < 3 && (
-            <button
+            <Button
+              type="button"
               onClick={handleNext}
-              className="px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600 ml-auto"
+              className="ml-auto bg-blue-500 hover:bg-blue-600"
             >
               다음
-            </button>
+            </Button>
           )}
           {step === 3 && (
-            <button
-              type="submit"
-              className="px-4 py-2 rounded bg-green-500 text-white hover:bg-green-600 ml-auto"
-            >
+            <Button className="px-4 py-2 rounded bg-green-500 text-white hover:bg-green-600 ml-auto">
               회원가입 완료
-            </button>
+            </Button>
           )}
         </div>
       </form>

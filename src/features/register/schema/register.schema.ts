@@ -15,7 +15,7 @@ export const accountSchema = z
 
 export const profileSchema = z
   .object({
-    birth: z.string().min(6, "생년월일을 입력하세요."),
+    birth: z.string().min(6, "생년월일을 입력하세요. (예: 19990101)"),
     gender: z.enum(["none", "male", "female", "other"]),
     nickname: z.string().min(2, "닉네임은 2자 이상이어야 합니다."),
   })

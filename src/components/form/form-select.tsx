@@ -25,7 +25,7 @@ export const FormSelect = ({
       {(field) => (
         <Select onValueChange={field.onChange} defaultValue={field.value}>
           <FormControl>
-            <SelectTrigger {...select}>
+            <SelectTrigger {...select} {...field}>
               <SelectValue placeholder={placeholder} />
             </SelectTrigger>
           </FormControl>

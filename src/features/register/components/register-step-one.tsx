@@ -29,6 +29,7 @@ export const RegisterStepOne = () => {
       <FormInput
         label="전화번호"
         name="account.phone"
+        type="tel"
         placeholder="'-'를 제외하고 입력하세요."
       />
     </div>

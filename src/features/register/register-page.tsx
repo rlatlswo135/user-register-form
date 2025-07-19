@@ -8,13 +8,7 @@ import { RegisterStepTwo } from "./components/register-step-two";
 import { RegisterStepThree } from "./components/register-step-three";
 import { Button } from "@/components/ui/button";
 
-/*
-#TODO
-
-1. 각 폼 이상한거 없는지 체크
-2. 다음, 이전버튼 Register-Step 컴포넌트에 넣을지 고민
-*/
-const initialRegisterValue: RegisterSchema = {
+const INITIAL_VALUE: RegisterSchema = {
   account: {
     username: "",
     password: "",
@@ -30,28 +24,28 @@ const initialRegisterValue: RegisterSchema = {
   sns: [],
 };
 
+// 스키마의 프로퍼티 순서와 동기화된 tuple
+const STEP_SCHEMA = ["account", "profile", "sns"] as const;
+
 export const RegisterPage = () => {
+  const [step, setStep] = useState(1);
+
   const form = useForm({
     resolver: zodResolver(registerSchema),
-    defaultValues: initialRegisterValue,
+    defaultValues: INITIAL_VALUE,
     mode: "onTouched",
   });
 
-  const [step, setStep] = useState(1);
-
   const handleNext = async () => {
-    const schemaField = step === 1 ? "account" : step === 2 ? "profile" : "sns";
-
-    const result = await form.trigger(schemaField);
+    const result = await form.trigger(STEP_SCHEMA[step - 1]);
 
     if (result) {
-      form.clearErrors();
-      setStep((prev) => prev + 1);
+      setStep((step) => step + 1);
     }
   };
 
   const handlePrev = () => {
-    setStep((prev) => prev - 1);
+    setStep((step) => step - 1);
   };
 
   return (

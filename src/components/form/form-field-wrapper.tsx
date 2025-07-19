@@ -11,14 +11,12 @@ import type {
   FieldPath,
   FieldValues,
 } from "react-hook-form";
+import type { FormProps } from "./types/form.types";
 
 type FormFieldWrapperProps<
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
-> = {
-  name: FieldPath<TFieldValues>;
-  label?: string;
-  description?: string;
+> = FormProps<FieldPath<TFieldValues>> & {
   children: (field: ControllerRenderProps<FieldValues, TName>) => ReactNode;
 };
 

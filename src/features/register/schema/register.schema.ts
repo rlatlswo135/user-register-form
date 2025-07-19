@@ -6,7 +6,10 @@ export const accountSchema = z
     password: z.string().min(6, "비밀번호는 6자 이상이어야 합니다."),
     passwordConfirm: z.string(),
     email: z.string().email("이메일 형식이 올바르지 않습니다."),
-    phone: z.string().min(9, "전화번호를 입력하세요."),
+    phone: z
+      .string()
+      .regex(/\d+$/, "올바른 형식이 아닙니다.")
+      .min(9, "전화번호를 입력하세요."),
   })
   .refine((data) => data.password === data.passwordConfirm, {
     message: "비밀번호가 일치하지 않습니다.",
@@ -15,7 +18,10 @@ export const accountSchema = z
 
 export const profileSchema = z
   .object({
-    birth: z.string().min(6, "생년월일을 입력하세요. (예: 19990101)"),
+    birth: z
+      .string()
+      .regex(/\d+$/, "올바른 형식이 아닙니다.")
+      .min(6, "생년월일을 입력하세요. (예: 19990101)"),
     gender: z.enum(["none", "male", "female", "other"]),
     nickname: z.string().min(2, "닉네임은 2자 이상이어야 합니다."),
   })

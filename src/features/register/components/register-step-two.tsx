@@ -15,6 +15,7 @@ export const RegisterStepTwo = () => {
         label="생년월일"
         name="profile.birth"
         placeholder="생년월일 (예: 19990101)"
+        autoFocus
       />
       <FormSelect
         label="성별"

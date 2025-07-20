@@ -1,20 +1,18 @@
-import { useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef } from "react";
 import { jwtDecode } from "jwt-decode";
+import type { UseFormReturn } from "react-hook-form";
+import type { RegisterSchema } from "../schema/register.schema";
+import type { GoogleAccount } from "../types/register.types";
+
+type RegisterStepThreeProps = {
+  form: UseFormReturn<RegisterSchema>;
+};
 
 const CLIENT_ID =
   "593702851174-d5jijcip3p5dl5oekbv22tbjkufs0qu5.apps.googleusercontent.com";
 
-type GoogleAccount = {
-  name: string;
-  email: string;
-};
-
-export const RegisterStepThree = () => {
+export const RegisterStepThree = ({ form }: RegisterStepThreeProps) => {
   const googleBtnRef = useRef<HTMLDivElement>(null);
-
-  const [googleAccount, setGoogleAccount] = useState<GoogleAccount | null>(
-    null
-  );
 
   useLayoutEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -26,7 +24,10 @@ export const RegisterStepThree = () => {
         callback: (response: { credential: string }) => {
           const decodedJwt = jwtDecode(response.credential) as GoogleAccount;
 
-          setGoogleAccount(decodedJwt);
+          form.setValue("sns.google", {
+            email: decodedJwt.email,
+            name: decodedJwt.name,
+          });
         },
       });
 
@@ -38,17 +39,7 @@ export const RegisterStepThree = () => {
 
       google.accounts.id.renderButton(googleBtnRef.current, renderOptions);
     }
-  }, []);
+  }, [form]);
 
-  return (
-    <>
-      <div ref={googleBtnRef} />
-      {googleAccount && (
-        <div>
-          <p>{googleAccount.email}</p>
-          <p>{googleAccount.name}</p>
-        </div>
-      )}
-    </>
-  );
+  return <div ref={googleBtnRef} />;
 };

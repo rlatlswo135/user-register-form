@@ -30,7 +30,14 @@ export const profileSchema = z
     path: ["gender"],
   });
 
-export const snsSchema = z.array(z.enum(["kakao", "naver", "google", "apple"]));
+export const snsSchema = z.object({
+  google: z
+    .object({
+      email: z.string().email(),
+      name: z.string(),
+    })
+    .optional(),
+});
 
 export const registerSchema = z.object({
   account: accountSchema,
